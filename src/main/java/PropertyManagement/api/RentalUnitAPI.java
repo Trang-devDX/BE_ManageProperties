@@ -1,5 +1,7 @@
 package PropertyManagement.api;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -35,6 +37,16 @@ public class RentalUnitAPI {
 	public List<RentalUnitDTO> getAllRentalUnits(){
 		List<RentalUnitDTO> result = rentalUnitService.getAllRentalUnits();
 		return result;
+	}
+	
+	@GetMapping(value = "/sort")
+	public List<RentalUnitDTO> getAllRentalUnitsSort() {
+	    List<RentalUnitDTO> result = rentalUnitService.getAllRentalUnits();
+	    
+	    // Sắp xếp tăng dần theo rentPrice
+	    Collections.sort(result, Comparator.comparing(RentalUnitDTO::getRentPrice));
+	    
+	    return result;
 	}
 	
 	@GetMapping(value = "/{id}")
